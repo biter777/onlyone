@@ -9,12 +9,12 @@ import (
 )
 
 // Chk - check for a lock-file (for app already running)
-func Chk(lockFileNames ...string) error {
-	lockFileName, err := getLockFileName()
-	if err != nil && len(lockFileNames) < 1 {
-		return err
-	}
-	if lockFileName != "" {
+func Chk(lockFileNames ...string) (err error) {
+	if len(lockFileNames) < 1 {
+		lockFileName, err := getLockFileName()
+		if err != nil {
+			return err
+		}
 		lockFileNames = append(lockFileNames, lockFileName)
 	}
 
